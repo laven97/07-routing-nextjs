@@ -13,7 +13,7 @@ export async function fetchNotes(
   page: number,
   perPage = 12
 ): Promise<{ notes: Note[]; totalPages: number }> {
-  const response: AxiosResponse<{ notes: Note[]; totalPages: number }> =
+  const res: AxiosResponse<{ notes: Note[]; totalPages: number }> =
     await api.get("/notes", {
       params: {
         search,
@@ -22,7 +22,7 @@ export async function fetchNotes(
         sortBy: "created",
       },
     });
-  return response.data;
+  return res.data;
 }
 
 export async function createNote(
