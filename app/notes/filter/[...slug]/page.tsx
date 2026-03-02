@@ -12,14 +12,14 @@ interface NotesProps {
 }
 
 export default async function NotesPage({ params }: NotesProps) {
-  const queryClien = new QueryClient();
-
   const { slug } = await params;
-  const tag = slug[0] as NoteTags;
+  const tag = (slug && slug.length > 0 ? slug[0] : "all") as NoteTags;
+
+  const queryClien = new QueryClient();
 
   await queryClien.prefetchQuery({
     queryKey: ["notes", tag, "", 1],
-    queryFn: () => fetchNotes(tag, "", 1),
+    queryFn: () => fetchNotes(tag === "all" ? "all" : tag, "", 1),
   });
 
   return (

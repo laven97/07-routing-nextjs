@@ -18,8 +18,8 @@ export async function fetchNotes(
   search: string,
   page: number
 ): Promise<Answer> {
-  const params: Record<string, any> = { page, perPage: 12 };
-  if (tag !== "all") params.tag = tag;
+  const params: Record<string, any> = {search, page, perPage: 12 };
+  if (tag && tag !== "all") params.tag = tag;
   if (search) params.search = search;
 
   const res = await api.get<Answer>("/notes", { params });
