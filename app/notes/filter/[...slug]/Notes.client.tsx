@@ -5,7 +5,7 @@ import { fetchNotes } from "@/lib/api";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
-import SearchBox from "@/components/SearchBox/SerachBox";
+import SearchBox from "@/components/SearchBox/SearchBox";
 import Modal from "@/components/Modal/Modal";
 import NoteForm from "@/components/NoteForm/NoteForm";
 import { NoteList } from "@/components/NoteList/NoteList";
@@ -19,10 +19,10 @@ interface NotesClientProps {
 export function NotesClient({ tag }: NotesClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const [useInput, setUseInput] = useState("");
+  const [searchInput, setSearchInput] = useState("");
   const [page, setPage] = useState(1);
 
-  const debaunceSerch = useDebouncedCallback((value: string) => {
+  const debouncedSearch = useDebouncedCallback((value: string) => {
     setSearch(value);
     setPage(1);
   }, 500);
@@ -39,10 +39,10 @@ export function NotesClient({ tag }: NotesClientProps) {
     <div className={css.app}>
       <header>
         <SearchBox
-          value={useInput}
+          value={searchInput}
           onSearch={(value) => {
-            setUseInput(value);
-            debaunceSerch(value);
+            setSearchInput(value);
+            debouncedSearch(value);
           }}
         />
 
